@@ -8,7 +8,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git://github.com/normanjoyner/chef-api.git"
+    "url": "git://github.com/johnd/chef-api.git"
   },
   "dependencies": {
     "lodash": "^2.2.1",
