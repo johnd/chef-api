@@ -1,5 +1,4 @@
 // import dependencies
-var fs = require("fs");
 var ChefApi = require("./chef-api");
 var pkg = require("./package");
 
