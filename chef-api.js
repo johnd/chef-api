@@ -17,14 +17,16 @@ exports.getObject = function(){
         }
     }
 
-    require('./methods/clients');
-    require('./methods/cookbooks');
-    require('./methods/databags');
-    require('./methods/environments');
-    require('./methods/nodes');
-    require('./methods/roles');
-    require('./methods/search');
-    require('./methods/users');
 
+    var methodsFiles = ["clients", "cookbooks", "databags", "environments", "nodes", "roles", "search", "users"];
+
+    _.each(methodsFiles, function(file){
+        if(/\.js$/.test(file)){
+            _.each(require([".", "methods", file].join("/")).methods(object.options), function(method, method_name){
+                object[method_name] = method;
+            });
+        }
+    });
+    
     return object;
 }
