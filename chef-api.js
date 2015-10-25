@@ -1,7 +1,5 @@
 // import dependencies
-var fs = require("fs");
 var _ = require("lodash");
-var methodsFiles = fs.readdirSync([__dirname, "methods"].join("/"));
 
 exports.getObject = function(){
     var object = {};
@@ -9,7 +7,7 @@ exports.getObject = function(){
     object.options = {};
     object.config = function(options){
         object.options.name =  options.user_name || options.client_name,
-        object.options.key_contents = options.key || fs.readFileSync(options.key_path),
+        object.options.key_contents = options.key,
         object.options.host_url = options.url || ["https://api.opscode.com/organizations", options.organization].join("/")
         if(options.hasOwnProperty("ca")) {
             // absent means default,
@@ -19,13 +17,14 @@ exports.getObject = function(){
         }
     }
 
-    _.each(methodsFiles, function(file){
-        if(/\.js$/.test(file)){
-            _.each(require([__dirname, "methods", file].join("/")).methods(object.options), function(method, method_name){
-                object[method_name] = method;
-            });
-        }
-    });
+    require('./methods/clients');
+    require('./methods/cookbooks');
+    require('./methods/databags');
+    require('./methods/environments');
+    require('./methods/nodes');
+    require('./methods/roles');
+    require('./methods/search');
+    require('./methods/users');
 
     return object;
 }
