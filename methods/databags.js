@@ -1,6 +1,7 @@
 exports.methods = function(config){
 
-    var http_methods = require([__dirname, "..", "http_methods"].join("/")).http_methods(config);
+    var http_methods = require('../http_methods').http_methods(config);
+
 
     return {
         // http://docs.opscode.com/api_chef_server_data_bag.html#get
