@@ -18,13 +18,22 @@ exports.getObject = function(){
     }
 
 
-    var methodsFiles = ["clients", "cookbooks", "databags", "environments", "nodes", "roles", "search", "users"];
+    var methodsClients = require('./methods/clients'),
+        methodsCookbooks = require('./methods/cookbooks'),
+        methodsDatabags = require('./methods/databags'),
+        methodsEnvironments = require('./methods/environments'),
+        methodsNodes = require('./methods/nodes'),
+        methodsRoles = require('./methods/roles'),
+        methodsSearch = require('./methods/search'),
+        methodsUsers = require('./methods/users');
+
+    var methodsFiles = [methodsClients, methodsCookbooks, methodsDatabags, methodsEnvironments, methodsNodes, methodsRoles, methodsSearch, methodsUsers];
 
     _.each(methodsFiles, function(file){
-            _.each(require([".", "methods", file].join("/")).methods(object.options), function(method, method_name){
-                object[method_name] = method;
-            });
+      _.each(file.methods(object.options), function(method, method_name){
+        object[method_name] = method;
+      })
     });
-    
+
     return object;
 }
