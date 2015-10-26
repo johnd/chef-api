@@ -1,5 +1,5 @@
 exports.http_methods = function(config){
-    var operations = require([__dirname, "operations"].join("/")).operations(config);
+    var operations = require("./operations"]).operations(config);
 
     return {
         get: function(uri, qs, fn){
