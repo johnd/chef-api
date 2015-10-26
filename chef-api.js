@@ -21,11 +21,9 @@ exports.getObject = function(){
     var methodsFiles = ["clients", "cookbooks", "databags", "environments", "nodes", "roles", "search", "users"];
 
     _.each(methodsFiles, function(file){
-        if(/\.js$/.test(file)){
             _.each(require([".", "methods", file].join("/")).methods(object.options), function(method, method_name){
                 object[method_name] = method;
             });
-        }
     });
     
     return object;
